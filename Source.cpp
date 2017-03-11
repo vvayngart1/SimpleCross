@@ -57,15 +57,15 @@ int main(int argc, char **argv)
 
 			std::cout << std::endl;
 		}
+	}
 
-		if (!allResultsExpected.empty()) {
-			for (results_t::const_iterator it = allResultsExpected.begin(); it != allResultsExpected.end(); ++it) {
-				std::cout << "actual: <empty> - FAILED expected: " << *it << std::endl;
-			}
-
-			std::cout << "FAILED" << std::endl;
-			return -1;
+	if (!allResultsExpected.empty()) {
+		for (results_t::const_iterator it = allResultsExpected.begin(); it != allResultsExpected.end(); ++it) {
+			std::cout << "actual: <empty> - FAILED expected: " << *it << std::endl;
 		}
+
+		std::cout << "FAILED" << std::endl;
+		return -1;
 	}
 
 	if (3 == argc)

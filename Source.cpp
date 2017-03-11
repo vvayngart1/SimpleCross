@@ -37,8 +37,7 @@ int main(int argc, char **argv)
 	while (std::getline(actions, line))
 	{
 		results_t results = scross.action(line);
-		for (results_t::const_iterator it = results.begin(); it != results.end(); ++it)
-		{
+		for (results_t::const_iterator it = results.begin(); it != results.end(); ++it) {
 			std::cout << *it;
 			if (3 == argc) {
 				if (allResultsExpected.empty()) {
@@ -57,6 +56,15 @@ int main(int argc, char **argv)
 			}
 
 			std::cout << std::endl;
+		}
+
+		if (!allResultsExpected.empty()) {
+			for (results_t::const_iterator it = allResultsExpected.begin(); it != allResultsExpected.end(); ++it) {
+				std::cout << "actual: <empty> - FAILED expected: " << *it << std::endl;
+			}
+
+			std::cout << "FAILED" << std::endl;
+			return -1;
 		}
 	}
 

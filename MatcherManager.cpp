@@ -8,6 +8,7 @@ namespace trading {
 	std::once_flag MatcherManager::onceFlag;
 
 	std::list<std::string> MatcherManager::action(const std::string& msg) {
+		auto t1 = std::chrono::high_resolution_clock::now();
 		std::list<std::string> results;
 		try {
 			if (msg.empty())
@@ -37,7 +38,10 @@ namespace trading {
 
 					matcher->add(orderInfo, matcher, results);
 				}
-			}
+				
+				std::chrono::duration<double, std::micro> fp_ms = std::chrono::high_resolution_clock::now() - t1;
+				_performance.push_back(fp_ms.count());
+			}				
 				break;
 			case eAction::kCancel:
 			{
@@ -50,6 +54,9 @@ namespace trading {
 					iter->second.second->cancel(orderInfo, results);
 					removeOpenOrder(orderInfo->_order->_orderId);
 				}
+
+				std::chrono::duration<double, std::micro> fp_ms = std::chrono::high_resolution_clock::now() - t1;
+				_performance.push_back(fp_ms.count());
 			}
 				break;
 			case eAction::kPrint:

@@ -57,5 +57,8 @@ namespace trading {
 
 		TMatchers _matchers;
 		TOpenOrders _openOrders;
+
+	public:
+		std::vector<double> _performance;
 	};
 }

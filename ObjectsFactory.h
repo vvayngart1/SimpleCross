@@ -1,6 +1,6 @@
 #pragma once
 
-//#define __ObjectsFactory_NO_POOL__
+#include "Defs.h"
 
 #include <mutex>
 

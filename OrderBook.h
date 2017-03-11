@@ -1,13 +1,11 @@
 #pragma once
 
-//#define __OrderBookDeque__
-//#define __OrderBookList__
-
 #include <deque>
 #include <list>
 #include <vector>
 #include <algorithm>
 
+#include "Defs.h"
 #include "OrderInfo.h"
 
 //http://baptiste-wicht.com/posts/2012/12/cpp-benchmark-vector-list-deque.html

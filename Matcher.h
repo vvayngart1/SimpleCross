@@ -90,11 +90,8 @@ namespace trading {
 		}
 
 	private:
-		typedef PriceLadderOrderedMap<std::greater<trading::Order::Price> > BIDS;
-		typedef PriceLadderOrderedMap<std::less<trading::Order::Price> > ASKS;		
-
-		BIDS _bids;
-		ASKS _asks;		
+		TPriceLadderBids _bids;
+		TPriceLadderAsks _asks;
 		OrderInfo _orderInfoForPrint;
 	};
 }

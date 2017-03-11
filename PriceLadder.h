@@ -73,4 +73,8 @@ namespace trading {
 		TPriceLadder _priceLadder;		
 		TOrderBookPtr _nullBook;
 	};
+
+
+	typedef PriceLadderOrderedMap<std::greater<trading::Order::Price> > TPriceLadderBids;
+	typedef PriceLadderOrderedMap<std::less<trading::Order::Price> > TPriceLadderAsks;
 }

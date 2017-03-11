@@ -21,11 +21,19 @@ int main(int argc, char **argv)
 
 	if (3 == argc) {
 		std::ifstream resultsExpected(argv[2], std::ios::in);
+		if (!resultsExpected) {
+			std::cout << "ERROR: can open file: " << argv[2] << std::endl;
+			return -1;
+		}
 		while (std::getline(resultsExpected, line))
 			allResultsExpected.push_back(line);
 	}
 
 	std::ifstream actions(argv[1], std::ios::in);	
+	if (!actions) {
+		std::cout << "ERROR: can open file: " << argv[1] << std::endl;
+		return -1;
+	}
 	while (std::getline(actions, line))
 	{
 		results_t results = scross.action(line);

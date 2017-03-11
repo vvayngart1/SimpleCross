@@ -39,9 +39,9 @@ public:
 			++begin;
 			if (begin != end) {
 				result = std::minmax_element(begin, end);
-				s << "min (w/o first measurements)=" << *(result.first) << " microsecs" << std::endl;
-				s << "max (w/o first measurements)=" << *(result.second) << " microsecs" << std::endl;
-				s << "mean (w/o first measurements)=" << std::accumulate(begin, end, 0.0) / performance.size() << " microsecs" << std::endl;
+				s << "min (w/o first measurement)=" << *(result.first) << " microsecs" << std::endl;
+				s << "max (w/o first measurement)=" << *(result.second) << " microsecs" << std::endl;
+				s << "mean (w/o first measurement)=" << std::accumulate(begin, end, 0.0) / performance.size() << " microsecs" << std::endl;
 			}
 
 #ifdef __SimpleCrossPrintPerformanceVector__

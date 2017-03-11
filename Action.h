@@ -1,5 +1,9 @@
 #pragma once
 
+/*
+	Enum to indicate trading actions (both requests and responses)
+*/
+
 namespace trading {
 	enum class eAction {
 		kAdd = 'O',

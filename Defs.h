@@ -5,4 +5,4 @@
 
 //#define __ObjectsFactory_NO_POOL__
 
-#define __SimpleCrossPrintPerformanceVector__
+//#define __SimpleCrossPrintPerformanceVector__

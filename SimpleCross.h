@@ -44,7 +44,8 @@ public:
 				s << "mean (w/o first measurements)=" << std::accumulate(begin, end, 0.0) / performance.size() << " microsecs" << std::endl;
 			}
 
-#ifdef __SimpleCrossPrintPerformanceVector__			
+#ifdef __SimpleCrossPrintPerformanceVector__
+			s << "+++++++ all measurements (comment out \n#define __SimpleCrossPrintPerformanceVector__  \nin Defs.h to disable print out): +++++++" << std::endl;
 			for (auto i : performance)
 				s << i << " ";			
 #endif

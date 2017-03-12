@@ -8,6 +8,23 @@
 #include "OrderBook.h"
 #include "Pool.h"
 
+/*
+	ObjectsFactory creates TOrderPtr, TOrderInfoPtr and TOrderBookPtr objects used
+	by other classes.  Idea behind is to enable optimization of creation/recycling
+	of multiple objects used throughout the system.  e.g., orders are being created/
+	destroyed on a regular bases, so ObjectsFactory has 2 flavors of creation mechanisms
+	for them:
+	1. Pool of TOrderPtr, with custom deleter defined for shared_ptr, which returns
+	he object back to the pool instead of using delete operator, thus cutting down
+	new/delete heap operations dramatically at the cost of shared pointer creation/redirections
+	2. No pool functionality by returning newly created on the heap Order object wrapped
+	by shared_ptr for access
+
+	1. or 2. is decided upon at compile time via __ObjectsFactory_NO_POOL__ preprocessor
+	directive. Default is __ObjectsFactory_NO_POOL__ not being defined, so 1. functionality
+	is in effect
+*/
+
 namespace trading {
 	class ObjectsFactory
 	{	

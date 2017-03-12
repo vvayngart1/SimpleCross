@@ -16,7 +16,8 @@ functions
 Additional information:
 ------------------------------------------------
 1. Project was developed using Microsoft Visual Studio Community 2015
-Version 14.0.23107.0 D14REL on Windows 7 Professional Version 6.1
+Version 14.0.23107.0 D14REL on Windows 7 Professional Version 6.1Name of
+the project file is SimpleCross.vcxproj
 2. Implemented pseudo-regression testing facility by enabling to compare
 particular input file to an expected output file and verifying that produced
 output matches the expected output.

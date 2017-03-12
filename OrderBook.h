@@ -44,7 +44,7 @@ namespace trading {
 		}
 
 	protected:
-		typedef TContainerType TOrders;
+		typedef TContainerType TOrders;	
 		TOrders _orders;		
 	};
 

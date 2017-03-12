@@ -1,5 +1,9 @@
 #pragma once
 
+/*
+	Structure that represents minimumalistic set of information
+	about an open order. Used in OrderBook.h family of classes
+*/
 namespace trading {
 	enum class eOrderSide {
 		kBuy = 'B',

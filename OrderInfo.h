@@ -6,6 +6,10 @@
 #include "Action.h"
 #include "Order.h"
 
+/*
+	Structure that represents minimumalistic set of
+	information about an open order
+*/
 namespace trading {
 	typedef std::shared_ptr<Order> TOrderPtr;
 

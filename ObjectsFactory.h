@@ -12,7 +12,15 @@ namespace trading {
 	class ObjectsFactory
 	{	
 	public:
-		ObjectsFactory() = default;
+		/*
+			ObjectsFactory is a singleton, with access to it done through Instance()
+			methods and default constructor having default implementation and
+			copy constructor and assignment operator being disabled
+
+			Note: below Instance() is thread safe, which is not needed for the task at
+			hand, but it's a cool new techinique I found with new C++ 11, so thought
+			would give it a try
+		*/
 		static ObjectsFactory& ObjectsFactory::Instance() {
 			std::call_once(ObjectsFactory::onceFlag, []() {
 				instance.reset(new ObjectsFactory);
@@ -20,6 +28,14 @@ namespace trading {
 
 			return *(instance.get());
 		}
+
+	private:
+		/*
+			Implement only default construstor and disallow copy semantics
+		*/
+		ObjectsFactory() = default;
+		ObjectsFactory(const ObjectsFactory&) = delete;
+		ObjectsFactory & operator=(const ObjectsFactory&) = delete;
 
 	public:
 		trading::TOrderPtr getNewOrder() {
@@ -48,9 +64,6 @@ namespace trading {
 		}
 
 	private:
-		ObjectsFactory(const ObjectsFactory&) = delete;
-		ObjectsFactory & operator=(const ObjectsFactory&) = delete;
-
 		static std::unique_ptr<ObjectsFactory> instance;
 		static std::once_flag onceFlag;
 

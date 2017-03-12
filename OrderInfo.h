@@ -7,12 +7,20 @@
 #include "Order.h"
 
 /*
-	Structure that represents minimumalistic set of
-	information about an open order
+	Structure that represents extended set of
+	information about an open order.  
+	As an afterthought,	it's an overkill, Order and OrderInfo structures
+	probably should be combined, my original thinking was that Order
+	structure would be accessed much more frequently than OrderInfo, so
+	tried to keep Order to a minimum size to potentially decrease number
+	of cache misses on Order containers.  Ran out of time to clean up :)
 */
 namespace trading {
 	typedef std::shared_ptr<Order> TOrderPtr;
 
+	/*
+		Union to represent symbol as both string and a number
+	*/
 	union Symbol {
 		char _str[9];
 		std::uint64_t _num;

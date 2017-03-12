@@ -11,6 +11,12 @@
 
 typedef std::list<std::string> results_t;
 
+/*
+	SimpleCross implements elementary facade class to MatcherManager
+	interface.  It also cleans up MatcherManager resources 
+	and outputs performance statistics in it's destructor
+*/
+
 class SimpleCross
 {
 public:

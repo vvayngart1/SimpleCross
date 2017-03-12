@@ -29,8 +29,7 @@ namespace trading {
 					TMatcherPtr matcher;
 					auto iterMatcher = _matchers.find(orderInfo->_symbol._num);
 					if (_matchers.end() == iterMatcher) {
-						matcher.reset(new Matcher());
-						matcher->setSymbol(std::string(orderInfo->_symbol._str));
+						matcher.reset(new Matcher(std::string(orderInfo->_symbol._str)));
 						_matchers[orderInfo->_symbol._num] = matcher;
 					} else {
 						matcher = iterMatcher->second;

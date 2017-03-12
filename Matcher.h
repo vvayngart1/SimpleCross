@@ -7,26 +7,82 @@
 #include "PriceLadder.h"
 #include "MatcherManager.h"
 
+/*
+	Main class to manage orders/cancels/fills per symbol (e.g. separate
+	Matcher for IBM vs MSFT).
+	Matcher's containers for price levels/orders is TPriceLadderBids/TPriceLadderAsks,
+	which are defined in PriceLadder.h file.  
+	TPriceLadderBids is an abstraction of prices to container of orders in time priority
+	at each price level, with prices being organized from largest to smallest. 
+	TPriceLadderAsks is the same as TPriceLadderBids, with the difference being of prices
+	being organized from smallest to largest (for more information, please see comments
+	in PriceLadder.h).
+*/
+
 namespace trading {
 	class Matcher {
+		/*
+			Lifetime scope and access of Matchers are managed by MatcherManager,
+			and the following constructors/assignment operator semantics enforces
+			single instance per symbol (and no copying or assigment) creation by
+			MatcherManager.
+		*/
 	public:
-		void setSymbol(const std::string& symbol) {
+		/*
+			Constructor sets Matcher's symbol and configures
+			member _orderInfoForPrint instance for printing
+		*/
+		Matcher(const std::string& symbol) : _bids()
+											,_asks()
+											,_orderInfoForPrint()
+		{
 			_orderInfoForPrint._action = eAction::kPrint;
-
 			std::copy(symbol.begin(), symbol.end(), _orderInfoForPrint._symbol._str);
 			_orderInfoForPrint._symbol._str[symbol.length()] = '\0';
 		}
 
+	private:
+		Matcher(const Matcher&) = delete;
+		Matcher & operator=(const Matcher&) = delete;
+
+	public:
 		std::string getSymbol() const {
 			return std::string(_orderInfoForPrint._symbol._str);
 		}
 
 	public:
+		/*
+			Main methods to process actions per symbol
+		*/
+
+		/*
+			Processes new order request and generates fills if any
+		*/
 		void add(TOrderInfoPtr& orderInfoPtr, const MatcherManager::TMatcherPtr& matcher, std::list<std::string>& results);
+
+		/*
+			Processes cancel order request
+		*/
 		void cancel(TOrderInfoPtr& orderInfoPtr, std::list<std::string>& results);
+
+		/*
+			Processes print orders request
+		*/
 		void print(std::list<std::string>& results);
 
 	private:
+		/*
+			Main method which process addition of new order and check crosses/generates fills if any.
+			It processes addition of a new bid/ask in a generic way, which is achieved by templatizing of
+			TPriceLadder types.
+
+			Peformance note:  this method would be an early choice to target for optimization the way it's written
+			now, since it accepts a list of strings to return results (e.f. fills) in. The reason for optimization
+			would be that strings are created on the heap, which is time consuming and there are multiple copies
+			of the them for the same operation: Parser::orderInfoFillToString() creates string for each fill and than
+			it copies it into results vector, so there are at least 2 strings created/destroyed and 1 copy per fill
+			(Unfortunately ran out of time to try any of the optimization techniques :) )
+		*/
 		template <typename TPriceLadderSame, typename TPriceLadderOpposite>
 		void checkCrossesAndAdd(TOrderInfoPtr& orderInfo,
 								TPriceLadderSame& same,
@@ -87,7 +143,7 @@ namespace trading {
 				_orderInfoForPrint._order = *begin;
 				results.push_back(Parser::orderInfoToString(_orderInfoForPrint));
 			}
-		}
+		}	
 
 	private:
 		TPriceLadderBids _bids;

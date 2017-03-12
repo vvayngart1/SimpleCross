@@ -37,8 +37,10 @@ namespace trading {
 
 	private:
 		void init() {
-			// Initialize hash map number of buckets to prevent rehashing. Might not be a significant
-			// issue since number of symbols is fairly stable once trading day progresses.
+			/*
+				Initialize hash map number of buckets to prevent rehashing. Might not be a significant
+				issue since number of symbols is fairly stable once trading day progresses.
+			*/
 			_matchers.reserve(2 << 6);
 		}
 

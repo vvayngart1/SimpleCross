@@ -42,6 +42,9 @@ namespace trading {
 		}
 
 	private:
+		/*
+			Disallow copy construction and assignment for Matchers
+		*/
 		Matcher(const Matcher&) = delete;
 		Matcher & operator=(const Matcher&) = delete;
 

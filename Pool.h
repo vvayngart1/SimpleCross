@@ -4,6 +4,16 @@
 #include <unordered_set>
 #include <iterator>
 
+/*
+	This class implements simple Pool of objects and provides custom deleter
+	implementation to enable shared_ptr controlled objects to be returned
+	back to the pool instead of default behavior of being deleted in the heap.
+
+	Pool can easily be implemented to be tread safe by passing in template
+	parameter for mutex lock, so clients can pass either actual thread lock
+	or null lock if they know that Pool will be not be used from multiple threads
+*/
+
 namespace trading {
 	template<typename TItem>
 	class Pool {

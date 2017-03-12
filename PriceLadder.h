@@ -6,6 +6,24 @@
 
 #include "ObjectsFactory.h"
 
+/*
+	This class represents associative container of prices to container
+	of orders at those prices.  Container of prices are implemented in 
+	OrderBook.h file (see comments in OrderBook.h for more information).
+
+	OrderBook objects are obtained from Pool.h class implementation (see
+	comments in Pool.h file for more information).
+
+	Currently, PriceLadder is implemented as std::map (binary map) of
+	price to OrderBook, with custom defined comparator operator, since
+	bids need to be sorted in different order than asks.
+
+	My intention was to provide another flavor of implementation, with
+	std::map being substitued by sorted std::vector and control which implementation
+	is used at compile time with #define preprocessor directives defined in Defs.h,
+	but ran out of time :)
+*/
+
 namespace trading {
 	template <typename TOp>
 	class PriceLadderOrderedMap {

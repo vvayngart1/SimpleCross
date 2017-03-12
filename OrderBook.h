@@ -8,8 +8,23 @@
 #include "Defs.h"
 #include "OrderInfo.h"
 
-//http://baptiste-wicht.com/posts/2012/12/cpp-benchmark-vector-list-deque.html
-//https://www.codeproject.com/Articles/5425/An-In-Depth-Study-of-the-STL-Deque-Container
+/*
+	Classes implemented in this file represent storage of TOrderPtr objects
+	on the same price level, with oldest order being return first by getFirst()
+	method.
+
+	Three implementations in this file were insprired by ideas in the following 2 links:
+		http://baptiste-wicht.com/posts/2012/12/cpp-benchmark-vector-list-deque.html
+		https://www.codeproject.com/Articles/5425/An-In-Depth-Study-of-the-STL-Deque-Container
+	
+	The implementations are:
+	1. Orders stored in std::vector<TOrderPtr>
+	2. Orders stored in std::deque<TOrderPtr>
+	3. Orders stored in std::list<TOrderPtr>
+
+	Which implementation used can be controlled at compile time by defining __OrderBookVector__,
+	__OrderBookDeque__ or __OrderBookList__ preprocessor directives in Defs.h file
+*/
 
 namespace trading {
 	template <typename TContainerType>
@@ -47,8 +62,6 @@ namespace trading {
 		typedef TContainerType TOrders;	
 		TOrders _orders;		
 	};
-
-
 #if defined(__OrderBookDeque__)
 	class OrderBookDeque : public OrderBookBase<std::deque<TOrderPtr> > {
 	public:
@@ -83,7 +96,7 @@ namespace trading {
 
 	typedef OrderBookList TOrderBook;
 	typedef std::list<TOrderPtr> TOrderBookContainer;
-#else
+#elif defined(__OrderBookVector__)
 	class OrderBookVector : public OrderBookBase<std::vector<TOrderPtr> > {
 	public:
 		void init() {
@@ -107,6 +120,8 @@ namespace trading {
 
 	typedef OrderBookVector TOrderBook;	
 	typedef std::vector<TOrderPtr> TOrderBookContainer;	
+#else
+	# error "Please specify __OrderBookVector__, __OrderBookDeque__ or __OrderBookList__ in Defs.h file"
 #endif
 
 	typedef std::shared_ptr<TOrderBook> TOrderBookPtr;	

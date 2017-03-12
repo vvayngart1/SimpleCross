@@ -20,9 +20,8 @@
 	2. No pool functionality by returning newly created on the heap Order object wrapped
 	by shared_ptr for access
 
-	1. or 2. is decided upon at compile time via __ObjectsFactory_NO_POOL__ preprocessor
-	directive. Default is __ObjectsFactory_NO_POOL__ not being defined, so 1. functionality
-	is in effect
+	1. or 2. is decided upon at compile time via __ObjectsFactory_POOL__ or __ObjectsFactory_NO_POOL__
+	preprocessor directives in Defs.h file. 
 */
 
 namespace trading {
@@ -58,24 +57,30 @@ namespace trading {
 		trading::TOrderPtr getNewOrder() {
 #if defined(__ObjectsFactory_NO_POOL__)
 			return trading::TOrderPtr(new trading::Order());
-#else
+#elif defined(__ObjectsFactory_POOL__)
 			return trading::TOrderPtr(_orders.obtain(), _orders.getDeleter());
+#else
+		# error "Please specify __ObjectsFactory_POOL__ or __ObjectsFactory_NO_POOL__ in Defs.h file"
 #endif
 		}
 
 		trading::TOrderInfoPtr getNewOrderInfo() {
 #if defined(__ObjectsFactory_NO_POOL__)
 			return trading::TOrderInfoPtr(new trading::OrderInfo());
-#else
+#elif defined(__ObjectsFactory_POOL__)
 			return trading::TOrderInfoPtr(_orderInfos.obtain(), _orderInfos.getDeleter());
+#else
+			# error "Please specify __ObjectsFactory_POOL__ or __ObjectsFactory_NO_POOL__ in Defs.h file"
 #endif
 		}
 
 		trading::TOrderBookPtr getNewOrderBook() {
 #if defined(__ObjectsFactory_NO_POOL__)
 			trading::TOrderBookPtr item = trading::TOrderBookPtr(new trading::TOrderBook());
-#else
+#elif defined(__ObjectsFactory_POOL__)
 			trading::TOrderBookPtr item = trading::TOrderBookPtr(_OrderBooks.obtain(), _OrderBooks.getDeleter());			
+#else
+			# error "Please specify __ObjectsFactory_POOL__ or __ObjectsFactory_NO_POOL__ in Defs.h file"
 #endif
 			return item;
 		}

@@ -10,6 +10,7 @@
 	The following #define directives relate to OrderBook implementations in OrderBook.h file
 	For more information, see comment in OrderBook.h file
 */
+#define __OrderBookVector__
 //#define __OrderBookDeque__
 //#define __OrderBookList__
 
@@ -18,6 +19,7 @@
 	The following #define directives relate to OrderBook implementations in ObjectsFactory.h file
 	For more information, see comment in ObjectsFactory.h file
 */
+#define __ObjectsFactory_POOL__
 //#define __ObjectsFactory_NO_POOL__
 
 /*

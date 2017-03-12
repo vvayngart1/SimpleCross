@@ -26,4 +26,4 @@
 	The following #define directive controls if all individual performance
 	measurements will be printed out to cout in SimpleCross.h file
 */
-//#define __SimpleCrossPrintPerformanceVector__
+#define __SimpleCrossPrintPerformanceVector__

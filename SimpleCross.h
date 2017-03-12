@@ -52,8 +52,8 @@ public:
 
 #ifdef __SimpleCrossPrintPerformanceVector__
 			s << "+++++++ all measurements (comment out \n#define __SimpleCrossPrintPerformanceVector__  \nin Defs.h to disable print out): +++++++" << std::endl;
-			for (auto i : performance)
-				s << i << " ";			
+			for (size_t i = 0; i < performance.size(); ++i)
+				s << "[" << i  << "]=" << performance[i] << " ";			
 #endif
 		}
 

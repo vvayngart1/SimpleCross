@@ -96,6 +96,11 @@ namespace trading {
 		static std::once_flag onceFlag;
 
 	private:
+		/*
+			Container to store open orders with mapping of orderId to TExtendedOrderInfo,
+			which is std::pair<TOrderInfoPtr, TMatcherPtr>.
+
+		*/
 		typedef std::pair<TOrderInfoPtr, TMatcherPtr> TExtendedOrderInfo;
 		typedef std::unordered_map<Order::Id, TExtendedOrderInfo> TOpenOrders;
 

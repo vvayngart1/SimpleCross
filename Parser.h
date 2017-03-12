@@ -9,6 +9,11 @@
 #include "Action.h"
 #include "OrderInfo.h"
 
+/*
+	This class implements a number of static methods to parse incoming action
+	string and format fill/cancel/print output strings
+*/
+
 namespace trading {
 	class Parser {
 	private:		
@@ -18,12 +23,23 @@ namespace trading {
 		static const char FIELD_SEP = ' ';
 
 	public:
+		/*
+			Parses incoming action string. As a theme throuht the project,
+			doesn't check validity of some of the inputs (e.g. not check
+			of msg != nullptr) by implicitly relying on callers of that method
+			to check those parameters, so that there check once at the highest
+			calling level, instead on each of the nested calls
+
+			This method uses custom specializedStrtok() implemented in Utils.h
+			file, which allows to preserve input msg while at the same time
+			providing strtok C function tokenization
+		*/
 		static void parse(const char* msg, OrderInfo& orderInfo) {
 			orderInfo._action = static_cast<eAction>(msg[0]);
 			switch (orderInfo._action) {
 			case eAction::kAdd:
 			case eAction::kCancel:
-			{
+			{	
 				if (nullptr == orderInfo._order)
 					throw std::runtime_error("order is null");
 

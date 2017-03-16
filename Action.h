@@ -10,7 +10,8 @@ namespace trading {
 		kCancel = 'X',
 		kPrint = 'P',
 		kFill = 'F',
-		kError = 'E'		
+		kError = 'E',
+		kUnknown = 0
 	};
 }
 	

@@ -27,3 +27,5 @@
 	measurements will be printed out to cout in SimpleCross.h file
 */
 #define __SimpleCrossPrintPerformanceVector__
+
+#define NULLIFY(a) ::memset((a), 0, sizeof(*a));

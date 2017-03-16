@@ -27,6 +27,16 @@ namespace trading {
 	};
 
 	struct OrderInfo {
+		OrderInfo() {
+			clear();
+		}
+
+		void clear() {
+			_action = eAction::kUnknown;
+			_order.reset();
+			NULLIFY(_symbol._str);
+		}
+
 		eAction _action;		
 		TOrderPtr _order;
 		Symbol _symbol;

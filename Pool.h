@@ -100,6 +100,7 @@ namespace trading {
 				return;
 			}
 			
+			item->clear();
 			_availableItems.insert(item);
 		}
 

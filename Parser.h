@@ -24,11 +24,11 @@ namespace trading {
 
 	public:
 		/*
-			Parses incoming action string. As a theme throuht the project,
-			doesn't check validity of some of the inputs (e.g. not check
-			of msg != nullptr) by implicitly relying on callers of that method
-			to check those parameters, so that there check once at the highest
-			calling level, instead on each of the nested calls
+			Parses incoming action string. As a theme throughout the project,
+			doesn't check validity of some of the inputs (e.g. doesn't check
+			if msg != nullptr) by implicitly relying on callers of that method
+			to check those parameters, so that there is a check once at the
+			highest	calling level, instead of on each of the nested calls
 
 			This method uses custom specializedStrtok() implemented in Utils.h
 			file, which allows to preserve input msg while at the same time

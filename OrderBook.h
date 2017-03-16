@@ -65,7 +65,11 @@ namespace trading {
 #if defined(__OrderBookDeque__)
 	class OrderBookDeque : public OrderBookBase<std::deque<TOrderPtr> > {
 	public:
-		void init() {
+		OrderBookDeque() {
+			clear();
+		}
+
+		void clear() {
 			if (!_orders.empty())
 				_orders.clear();			
 		}
@@ -82,7 +86,11 @@ namespace trading {
 #elif defined(__OrderBookList__)
 	class OrderBookList : public OrderBookBase<std::list<TOrderPtr> > {
 	public:
-		void init() {
+		OrderBookList() {
+			clear();
+		}
+
+		void clear() {
 			if (!_orders.empty())
 				_orders.clear();
 		}
@@ -99,7 +107,11 @@ namespace trading {
 #elif defined(__OrderBookVector__)
 	class OrderBookVector : public OrderBookBase<std::vector<TOrderPtr> > {
 	public:
-		void init() {
+		OrderBookVector() {
+			clear();
+		}
+
+		void clear() {
 			if (!_orders.empty())
 				_orders.clear();
 

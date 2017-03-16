@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Defs.h"
+
 /*
 	Structure that represents minimumalistic set of information
 	about an open order. Used in OrderBook.h family of classes
@@ -7,10 +9,19 @@
 namespace trading {
 	enum class eOrderSide {
 		kBuy = 'B',
-		kSell = 'S'
+		kSell = 'S',
+		kUnknown = 0
 	};
 
-	struct Order {		
+	struct Order {	
+		Order() {
+			clear();
+		}
+
+		void clear() {
+			NULLIFY(this);
+		}
+
 		typedef std::uint32_t Id;
 		typedef std::uint64_t Price;
 		typedef std::uint16_t Size;

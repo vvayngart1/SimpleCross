@@ -47,8 +47,7 @@ namespace trading {
 			TOrderBookPtr orderBook;
 			auto iter = _priceLadder.find(order->_price);
 			if (_priceLadder.end() == iter) {
-				orderBook = trading::ObjectsFactory::Instance().getNewOrderBook();
-				orderBook->init();
+				orderBook = trading::ObjectsFactory::Instance().getNewOrderBook();				
 				_priceLadder.insert(TPriceLadder::value_type(order->_price, orderBook));
 			} else {
 				orderBook = iter->second;

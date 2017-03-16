@@ -45,6 +45,7 @@ namespace trading {
 
 				Order& order = *(orderInfo._order);
 				char tokenCount = 0;
+				order._cumQty = 0;
 
 				TStrTokResult tokenResult;
 				specializedStrtok(const_cast<char*>(&msg[0]), ' ', tokenResult);				
@@ -122,12 +123,8 @@ namespace trading {
 					throw e;
 				}
 
-				if (eAction::kAdd == orderInfo._action && NUM_FIELDS_ADD != tokenCount) {
-					if (eAction::kAdd == orderInfo._action && NUM_FIELDS_ADD != tokenCount)
+				if (eAction::kAdd == orderInfo._action && NUM_FIELDS_ADD != tokenCount)					
 						throw std::runtime_error("malformed input for Add action");
-
-					order._cumQty = 0;
-				}
 
 				if (eAction::kCancel == orderInfo._action && NUM_FIELDS_CANCEL != tokenCount)
 					throw std::runtime_error("malformed input for Cancel action");				

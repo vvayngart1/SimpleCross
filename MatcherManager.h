@@ -118,7 +118,7 @@ namespace trading {
 			vector which contains performance measurements for add/cancel
 			operations on Matchers.  Was implemented at the last minute, so
 			not that well thought out access to it - just exposed it as a public
-			member (not a vyer good practice :) ).  Measurements are in microseconds
+			member (not a very good practice).  Measurements are in microseconds
 		*/
 		std::vector<double> _performance;
 	};

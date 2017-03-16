@@ -13,7 +13,7 @@
 	probably should be combined, my original thinking was that Order
 	structure would be accessed much more frequently than OrderInfo, so
 	tried to keep Order to a minimum size to potentially decrease number
-	of cache misses on Order containers.  Ran out of time to clean up :)
+	of cache misses on Order containers.
 */
 namespace trading {
 	typedef std::shared_ptr<Order> TOrderPtr;

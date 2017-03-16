@@ -84,7 +84,6 @@ namespace trading {
 			would be that strings are created on the heap, which is time consuming and there are multiple copies
 			of the them for the same operation: Parser::orderInfoFillToString() creates string for each fill and than
 			it copies it into results vector, so there are at least 2 strings created/destroyed and 1 copy per fill
-			(Unfortunately ran out of time to try any of the optimization techniques :) )
 		*/
 		template <typename TPriceLadderSame, typename TPriceLadderOpposite>
 		void checkCrossesAndAdd(TOrderInfoPtr& orderInfo,

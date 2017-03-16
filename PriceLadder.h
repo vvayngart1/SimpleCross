@@ -18,10 +18,9 @@
 	price to OrderBook, with custom defined comparator operator, since
 	bids need to be sorted in different order than asks.
 
-	My intention was to provide another flavor of implementation, with
-	std::map being substitued by sorted std::vector and control which implementation
-	is used at compile time with #define preprocessor directives defined in Defs.h,
-	but ran out of time :)
+	Further enhancements can be done by providing another flavor of implementation, with
+	std::map being substitued by sorted std::vector, and control which implementation
+	is used at compile time with #define preprocessor directives defined in Defs.h
 */
 
 namespace trading {

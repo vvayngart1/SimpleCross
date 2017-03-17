@@ -1,0 +1,213 @@
+static std::less_equal<tw::price::Ticks> le;
+static std::greater_equal<tw::price::Ticks> ge;
+
+static std::less<tw::price::Ticks> l;
+static std::greater<tw::price::Ticks> g;
+
+
+typedef std::multimap<trading::MarketOrder::Price,trading::MarketOrder,std::greater<trading::MarketOrder::Price> > BidsMap;
+typedef std::multimap<trading::MarketOrder::Price,trading::MarketOrder,std::less<trading::MarketOrder::Price> > AsksMap;
+
+
+std::map<int, char> map;
+map[0] = 'a';
+map[1] = 'b';
+map[2] = 'c';
+
+std::vector<char> v;
+//for_each(map.begin(), map.end(), [v](const auto &myMapPair) { char ch = myMapPair.second;  std::cout << "first " << myMapPair.first << " second "
+//	<< ch << std::endl;   });
+
+
+std::transform(map.begin(), map.end(), std::back_inserter(v), [](std::map<int, char>::const_reference p) { return p.second; });
+for_each(v.begin(), v.end(), [](const auto& value) { std::cout << value; });
+std::cout << std::endl;
+
+
+int arg[6] = { 1, 2, 3, 3, 3, 5 };
+std::vector<int> vec(arg, arg + 6);
+int a = 2;
+auto iter = std::remove_if(vec.begin(), vec.end(), [a](int i) { return i == a; });
+if (iter != vec.end())
+	vec.erase(iter);
+		
+
+		
+void copyVecFast(const vec<int>& original)
+{
+  vector<int> newVec;
+  newVec.reserve(original.size());
+  copy(original.begin(),original.end(),back_inserter(newVec));
+}
+
+
+trading::TOrderPtr ObjectsFactory::getNewOrder() {
+	return trading::TOrderPtr(new trading::Order());
+}
+
+trading::TOrderInfoPtr ObjectsFactory::getNewOrderInfo() {
+	return trading::TOrderInfoPtr(new trading::OrderInfo());
+}
+
+trading::TOrderBookVectorPtr ObjectsFactory::getNewOrderBook(unsigned short capacity) {
+	trading::TOrderBookVectorPtr item = trading::TOrderBookVectorPtr(new trading::OrderBookVector());
+	item->init(capacity);
+	return item;
+}
+
+
+
+
+int arg[6] = { 1, 2, 3, 3, 3, 5 };
+{
+	std::vector<int> vec(arg, arg + 6);
+	int a = 3;
+	auto iter = std::remove_if(vec.begin(), vec.end(), [a](int i) { return i == a; });
+	if (iter != vec.end())
+		vec.erase(iter, vec.end());
+}
+
+{
+	std::vector<int> vec(arg, arg + 6);
+	int a = 10;
+	auto iter = std::remove_if(vec.begin(), vec.end(), [a](int i) { return i == a; });
+	if (iter != vec.end())
+		vec.erase(iter, vec.end());
+}
+
+
+TOrderPtr getFirst() const {	
+}
+
+void addLast(const TOrderPtr& order) {	
+}
+
+void removeFirst() {	
+}
+
+bool remove(Order::Id orderId) {	
+}
+
+bool isEmpty() const {	
+}
+
+
+
+
+#include <cstdlib>
+#include <iostream>
+
+int main()
+{
+
+
+	std::string s = "0.007812499999999";
+	unsigned long int i = std::llround(10000000 * std::atof(s.c_str()));
+
+	std::cout << s.c_str() << "==>" << i << "::" << (double)(i) / 10000000.0 << std::endl;
+
+	s = "0.007812500001111";
+	i = std::llround(10000000 * std::atof(s.c_str()));
+
+
+	std::cout << s.c_str() << "==>" << i << "::" << (double)(i) / 10000000.0 << std::endl;
+
+	
+}
+
+
+
+
+#include <iostream>
+
+#include "Utils.h"
+
+/*
+#include<unordered_map>
+using namespace std;
+struct my_equal_to //: public binary_function<char*, char*, bool>
+{
+	bool operator()(const char* x, const char* y) const {
+		return strcmp(x, y) == 0;
+	}
+};
+
+struct Hash_Func {
+	//BKDR hash algorithm	
+	int operator()(char* str) const	{
+		int seed = 131;//31  131 1313 13131131313 etc//
+		int hash = 0;
+		while (*str) {
+			hash = (hash * seed) + (*str);
+			str++;
+		}
+
+		return hash & (0x7FFFFFFF);
+	}
+};
+
+typedef unordered_map<char*, unsigned int, Hash_Func, my_equal_to> my_unordered_map;
+*/
+//using namespace trading;
+
+typedef trading::TCStrUnorderedMap<unsigned int> my_unordered_map;
+
+int main() {
+	my_unordered_map location_map;
+
+	char a[10] = "ab";
+	location_map.insert(my_unordered_map::value_type(a, 10));
+	char b[10] = "abc";
+	location_map.insert(my_unordered_map::value_type(b, 20));
+
+	char c[10] = "abc";
+	location_map.insert(my_unordered_map::value_type(c, 10));
+
+	char d[10] = "abcd";
+	location_map.insert(my_unordered_map::value_type(d, 10));
+
+	printf("map size: %d\n", location_map.size());
+	my_unordered_map::iterator it;
+	if ((it = location_map.find("abc")) != location_map.end())
+	{
+		printf("found!\n");
+	}
+
+	return 0;
+}
+/*
+#include <thread>
+#include <atomic>
+#include <cassert>
+#include <string>
+
+#include <iostream>
+
+std::atomic<std::string*> ptr;
+int data;
+
+void producer()
+{
+	std::string* p = new std::string("Hello");
+	data = 42;
+	ptr.store(p, std::memory_order_release);
+}
+
+void consumer()
+{
+	std::string* p2;
+	while (!(p2 = ptr.load(std::memory_order_acquire)))
+		;
+	assert(*p2 == "Hello"); // never fires
+	assert(data == 42); // never fires
+
+	std::cout << *p2 << "::" << data << std::endl;
+}
+
+int main()
+{
+	std::thread t1(producer);
+	std::thread t2(consumer);
+	t1.join(); t2.join();
+}
+*/

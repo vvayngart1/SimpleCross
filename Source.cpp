@@ -7,8 +7,47 @@
 
 typedef std::list<std::string> results_t;
 
+class TestMove {
+public:
+	TestMove(uint32_t value) {
+		_value = new uint32_t(value);
+		std::cout << "TestMove(uint32_t value) constructor called" << std::endl;
+	}
+
+	TestMove(const TestMove& rhs) {
+		_value = rhs._value;
+		std::cout << "TestMove(const TestMove& rhs) constructor called" << std::endl;
+	}
+
+	TestMove(TestMove&& rhs) {
+		_value = rhs._value;
+		rhs._value = nullptr;
+		std::cout << "TestMove(TestMove&& rhs) constructor called" << std::endl;
+	}
+
+	uint32_t* _value;
+};
+
+
+TestMove createTestMove(uint32_t value) {
+	TestMove o = value;
+
+	return o;
+}
+
+
 int main(int argc, char **argv)
 {
+	TestMove o = std::move(createTestMove(8));
+
+	return 0;
+
+
+
+
+
+
+
 	if (1 == argc) {
 		std::cout << "USAGE: <actions file> [<actions_expected>]" << std::endl;
 		return -1;
